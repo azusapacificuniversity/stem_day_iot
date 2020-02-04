@@ -10,7 +10,7 @@
 
 // You should get Auth Token in the Blynk App.
 // Go to the Project Settings (nut icon).
-char auth[] = "" // put your auth token here
+char auth[] = ""; // put your auth token here
 
 // Your WiFi credentials.
 // Set password to "" for open networks.
@@ -26,6 +26,16 @@ const int ledPin = 25;
 const int freq = 5000;
 const int resolution = 10;
 
+// see https://github.com/blynkkk/blynk-library/blob/master/examples/GettingStarted/PushData/PushData.ino
+BlynkTimer timer;
+
+void myTimerEvent()
+{
+  int light = analogRead(34);
+  Blynk.virtualWrite(V3, light);
+  Serial.print("light value is ");
+  Serial.println(light);
+}
 
 
 BLYNK_WRITE(V0)
@@ -71,16 +81,15 @@ void setup()
   ledcAttachPin(27, 2);
 
   Blynk.begin(auth, ssid, pass);
-  // You can also specify server:
-  //Blynk.begin(auth, ssid, pass, "blynk-cloud.com", 80);
-  //Blynk.begin(auth, ssid, pass, IPAddress(192,168,1,100), 8080);
+
+  timer.setInterval(1 * 1000L, myTimerEvent);
 }
 
 void loop()
 {
   Blynk.run();
-
-
+  timer.run();
+  int light = analogRead(4);
   
 }
 
