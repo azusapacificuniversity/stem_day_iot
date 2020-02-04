@@ -31,7 +31,7 @@ BlynkTimer timer;
 
 void myTimerEvent()
 {
-  int light = analogRead(10);
+  int light = analogRead(34);
   Blynk.virtualWrite(V3, light);
   Serial.print("light value is ");
   Serial.println(light);
