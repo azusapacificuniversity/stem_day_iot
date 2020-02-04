@@ -10,7 +10,7 @@
 
 // You should get Auth Token in the Blynk App.
 // Go to the Project Settings (nut icon).
-char auth[] = ""; // put your auth token here
+char auth[] = "MtRbW-_U8kseq4O3oT_saH_PEJaXtYCh"; // put your auth token here
 
 // Your WiFi credentials.
 // Set password to "" for open networks.
@@ -31,7 +31,7 @@ BlynkTimer timer;
 
 void myTimerEvent()
 {
-  int light = analogRead(34);
+  int light = analogRead(10);
   Blynk.virtualWrite(V3, light);
   Serial.print("light value is ");
   Serial.println(light);
