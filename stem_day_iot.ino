@@ -31,6 +31,7 @@ const int ledPin = 25;
 // setting PWM properties
 const int freq = 5000;
 const int resolution = 10;
+float humidity = -99;
 
 // see https://github.com/blynkkk/blynk-library/blob/master/examples/GettingStarted/PushData/PushData.ino
 BlynkTimer timer;
@@ -41,7 +42,11 @@ void myTimerEvent()
   Blynk.virtualWrite(V3, light);
   Serial.print("light value is ");
   Serial.println(light);
+
+  
+  Blynk.virtualWrite(V4, humidity);
 }
+
 
 
 BLYNK_WRITE(V0)
@@ -139,7 +144,7 @@ void loop()
     }
     
     // Convert the data
-    float humidity  = ((data[0] * 256.0) + data[1]);
+    humidity  = ((data[0] * 256.0) + data[1]);
     humidity = ((125 * humidity) / 65536.0) - 6;
 
     // Start I2C transmission
