@@ -32,6 +32,7 @@ const int ledPin = 25;
 const int freq = 5000;
 const int resolution = 10;
 float humidity = -99;
+float temp = -10;
 
 // see https://github.com/blynkkk/blynk-library/blob/master/examples/GettingStarted/PushData/PushData.ino
 BlynkTimer timer;
@@ -43,8 +44,9 @@ void myTimerEvent()
   Serial.print("light value is ");
   Serial.println(light);
 
-  
+  //humidity and temperature
   Blynk.virtualWrite(V4, humidity);
+  Blynk.virtualWrite(V5, temp);
 }
 
 
@@ -167,7 +169,7 @@ void loop()
     }
 
     // Convert the data
-    float temp  = ((data[0] * 256.0) + data[1]);
+    temp  = ((data[0] * 256.0) + data[1]);
     float ctemp = ((175.72 * temp) / 65536.0) - 46.85;
     float ftemp = ctemp * 1.8 + 32;
     
