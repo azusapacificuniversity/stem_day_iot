@@ -21,7 +21,7 @@ char auth[] = "MtRbW-_U8kseq4O3oT_saH_PEJaXtYCh"; // put your auth token here
 // Your WiFi credentials.
 // Set password to "" for open networks.
 char ssid[] = "APU-MYDEVICES";
-char pass[] = "";
+char pass[] = "222";
 
 
 
