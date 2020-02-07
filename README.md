@@ -12,3 +12,7 @@ This project uses:
 - Humidity Sensor PCB
 - Adafruit Light Sensor
 - USB Power Bank (optional)
+
+Breadboard Schematic:
+![Breadboard Schematic]
+(https://raw.githubusercontent.com/azusapacificuniversity/stem_day_iot/master/SWE%20Stem%20Day%20Breadboard%20Schematic.png)
