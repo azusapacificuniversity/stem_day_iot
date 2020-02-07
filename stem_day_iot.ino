@@ -1,5 +1,18 @@
 // Copyright 2020 Azusa Pacific Univeristy
 
+
+// see the README.md file for more info
+
+// Virtual Pin assignments
+// V0 Red Light from app to device
+// V1 Green "
+// V2 Blue "
+// V3 Light intensity           from device to app
+// V4 Percent Relative Humidity "
+// V5 Temperature in Fahrenheit "
+// V6 Temperature in Celsisu    "
+
+
 /* Comment this out to disable prints and save space */
 #define BLYNK_PRINT Serial
 
@@ -16,7 +29,8 @@
 
 // You should get Auth Token in the Blynk App.
 // Go to the Project Settings (nut icon).
-char auth[] = ""; // put your auth token here
+//char auth[] = ""; // put your auth token here
+char auth[] = "py_MA8XBFPZLjvRykChG3qOKKvJuM4ra"; // SWE STEM day 28
 
 // Your WiFi credentials.
 // Set password to "" for open networks.
@@ -31,26 +45,39 @@ const int ledPin = 25;
 // setting PWM properties
 const int freq = 5000;
 const int resolution = 10;
-float humidity = -99;
-float temp = -10;
+float humidity = -1;
+float ctemp = -1;
+float ftemp = -1;
 
 // see https://github.com/blynkkk/blynk-library/blob/master/examples/GettingStarted/PushData/PushData.ino
 BlynkTimer timer;
 
 void myTimerEvent()
 {
-  int light = analogRead(34);
-  Blynk.virtualWrite(V3, light);
-  Serial.print("light value is ");
-  Serial.println(light);
+  // these are communicating data on virtual pins from the ESP device to the Blynk app
+  int raw_light = analogRead(34);
 
+  //
+  // a voltage of 0-3.3V on the pin turns into a 12-bit value from 0-4095
+  // https://randomnerdtutorials.com/esp32-adc-analog-read-arduino-ide/
+  // the map function lets 
+  // https://www.arduino.cc/reference/tr/language/functions/math/map/
+  uint8_t percent_light = map(raw_light, 0, 4095, 0, 100);
+  Blynk.virtualWrite(V3, percent_light);
+  Serial.print("raw light value is ");
+  Serial.print(raw_light);
+  Serial.print(", percentage light is ");
+  Serial.println(percent_light);
+  
   //humidity and temperature
   Blynk.virtualWrite(V4, humidity);
-  Blynk.virtualWrite(V5, temp);
+  Blynk.virtualWrite(V5, ftemp);
+  Blynk.virtualWrite(V6, ctemp);
 }
 
 
-
+// these are data coming on virtual pins from the Blynk app to the ESP device
+//
 BLYNK_WRITE(V0)
 {
   int pinData = param.asInt(); 
@@ -169,9 +196,9 @@ void loop()
     }
 
     // Convert the data
-    temp  = ((data[0] * 256.0) + data[1]);
-    float ctemp = ((175.72 * temp) / 65536.0) - 46.85;
-    float ftemp = ctemp * 1.8 + 32;
+    float rawtemp  = ((data[0] * 256.0) + data[1]);
+    ctemp = ((175.72 * rawtemp) / 65536.0) - 46.85;
+    ftemp = ctemp * 1.8 + 32;
     
     // Output data to serial monitor
     Serial.print("Relative humidity : ");
