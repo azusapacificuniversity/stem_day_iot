@@ -1,6 +1,12 @@
 // Copyright 2020 Azusa Pacific Univeristy
 
 
+// You should get Auth Token in the Blynk App.
+// Go to the Project Settings (nut icon), and you can
+// e-mail it to yourself
+char auth[] = ""; // put your auth token here
+
+
 // see the README.md file for more info
 
 // Virtual Pin assignments
@@ -10,7 +16,7 @@
 // V3 Light intensity           from device to app
 // V4 Percent Relative Humidity "
 // V5 Temperature in Fahrenheit "
-// V6 Temperature in Celsisu    "
+// V6 Temperature in Celsisus   "
 
 
 /* Comment this out to disable prints and save space */
@@ -27,10 +33,7 @@
 // SI7006-A20 I2C address is 0x40(64)
 #define Addr 0x40
 
-// You should get Auth Token in the Blynk App.
-// Go to the Project Settings (nut icon).
-//char auth[] = ""; // put your auth token here
-char auth[] = "py_MA8XBFPZLjvRykChG3qOKKvJuM4ra"; // SWE STEM day 28
+
 
 // Your WiFi credentials.
 // Set password to "" for open networks.
@@ -54,10 +57,11 @@ BlynkTimer timer;
 
 void myTimerEvent()
 {
+  //
   // these are communicating data on virtual pins from the ESP device to the Blynk app
+  //
   int raw_light = analogRead(34);
 
-  //
   // a voltage of 0-3.3V on the pin turns into a 12-bit value from 0-4095
   // https://randomnerdtutorials.com/esp32-adc-analog-read-arduino-ide/
   // the map function lets 
