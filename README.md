@@ -14,5 +14,4 @@ This project uses:
 - USB Power Bank (optional)
 
 Breadboard Schematic:
-![Breadboard Schematic]
-(https://raw.githubusercontent.com/azusapacificuniversity/stem_day_iot/master/SWE%20Stem%20Day%20Breadboard%20Schematic.png)
+![Breadboard Schematic](https://raw.githubusercontent.com/azusapacificuniversity/stem_day_iot/master/SWE%20Stem%20Day%20Breadboard%20Schematic.png)
