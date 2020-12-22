@@ -1,4 +1,4 @@
-// Copyright 2020 Azusa Pacific Univeristy
+// Copyright 2020 Azusa Pacific University
 
 
 // You should get Auth Token in the Blynk App.
